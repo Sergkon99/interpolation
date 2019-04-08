@@ -174,7 +174,7 @@ void MainWindow::draw(QPainter& paint){
     paint.drawPath(path);
 }
 
-//FIX ME для одной точки некорректно строится график
+//FIX ME
 void MainWindow::drawPoints(QPainter & painter,int count, const QStringList & listX, const QStringList & listY){
     //return;
     //painter.setPen(QPen(Qt::red,3));
@@ -231,15 +231,6 @@ void MainWindow::solve(int count, const QStringList& listX, const QStringList& l
         QString strAns = getStrAns(res);
         ui->outputLnX->setText(strAns);
     }
-
-
-//    setX(round(*min_element(x.begin(),x.end()))-1,
-//         round(*max_element(x.begin(),x.end()))+1);
-//    setY(round(*min_element(y.begin(),y.end()))-1,
-//         round(*max_element(y.begin(),y.end()))+1);
-//    init();
-//    setO();
-//    calcScale();
 }
 
 
