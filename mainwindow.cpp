@@ -1,9 +1,5 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QPainter>
-#include <QtDebug>
-#include <QStandardItemModel>
-#include <QStandardItem>
 
 #define all(x) x.begin(),x.end()
 const double eps = 1e-9;
@@ -17,6 +13,19 @@ MainWindow::MainWindow(QWidget *parent) :
     setSize(ui->output->height(),
             ui->output->width());
     init();
+
+    QPixmap map(w, h);
+    QPainter paint;
+
+    paint.begin(&map);
+
+    clearPainter(paint);
+    drawAxes(paint);
+
+    paint.end();
+
+    ui->output->setPixmap(map);
+
 }
 
 MainWindow::~MainWindow()
@@ -25,8 +34,8 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::init(){
-    setX(-10, 10);
-    setY(-10, 10);
+    setX(-15, 15);
+    setY(-15, 15);
     setO();
     calcScale();
 }
@@ -58,36 +67,41 @@ void MainWindow::calcScale(){
 
 QString MainWindow::getStrAns(const std::vector<double> &res){
     bool firstDigit = true;
+    bool wasDigit = false;
     QString strAns = "L<sub>n</sub>(x) = ";
 
-    for(int i = res.size()-1;i>=0;i--){
+    for(int i = res.size() - 1;i >= 0;i--){
         if(fabs(res[i]) < eps)
             continue;
-        QString tmp="";
+
+        wasDigit = true;
+        QString tmp = "";
 
         if(firstDigit){
             firstDigit = false;
-            if(res[i]<0)
-                tmp+="-";
+            if(res[i] < 0)
+                tmp += "-";
         }
         else{
-            if(res[i]<0)
-                tmp+="-";
+            if(res[i] < 0)
+                tmp += "-";
             else
-                tmp+="+";
+                tmp += "+";
         }
 
-        if(fabs(res[i]-1) > eps)
-            tmp+=QString::number(fabs(res[i]),'g',2);
+        if(fabs(res[i] - 1) > eps)
+            tmp += QString::number(fabs(res[i]),'g',2);
 
-        if(i!=0){
-            if(i==1)
-                tmp+="x";
+        if(i != 0){
+            if(i == 1)
+                tmp += "x";
             else
-                tmp+="x<sup>" + QString::number(i)+ "</sup>";
+                tmp += "x<sup>" + QString::number(i) + "</sup>";
         }
-        strAns+=tmp;
+        strAns += tmp;
     }
+    if(!wasDigit)
+        strAns += "0";
 
     return strAns;
 }
@@ -96,105 +110,93 @@ double MainWindow::f(double x){
     return p(x);
 }
 
-void MainWindow::drawAxes(QPainter& painter){
+void MainWindow::clearPainter(QPainter & painter){
     painter.eraseRect(0,0,w,h);
+}
 
-    painter.drawPoint(oX, oY);
-
-    QLine l1(oX*scaleX,0,oX*scaleX,h);
-    QLine l2(0,oY*scaleY,w,oY*scaleY);
+void MainWindow::drawAxes(QPainter& painter){   
+    ui->statusBar->showMessage("draw axes start");
+    QLine l1(oX * scaleX, 0, oX *scaleX, h);
+    QLine l2(0, oY * scaleY, w, oY * scaleY);
 
     painter.drawLine(l1);
     painter.drawLine(l2);
 
     painter.setPen(QPen(Qt::black,3));
 
-    for(int i = xMin;i <= xMax;i++)
-        painter.drawPoint((oX+i)*scaleX, (oY)*scaleY);
-
-    for(int i = yMin;i <= yMax;i++)
-        painter.drawPoint(oX*scaleX, (i+oY)*scaleY);
-
+    for(int i = xMin + 1;i < xMax;i++){
+        painter.drawPoint((oX + i)*scaleX, oY * scaleY);
+        if(i == 0)
+            continue;
+        painter.drawText((oX + i)*scaleX - 5, oY * scaleY + 15, QString::number(i));
+    }
+    //painter.drawText(oX * scaleX - 10, oY * scaleY - 5, "0");
+    for(int i = yMin + 1;i < yMax;i++){
+        painter.drawPoint(oX * scaleX, (i + oY)*scaleY);
+        if(i == 0)
+            continue;
+        painter.drawText(oX*scaleX + 5, (i + oY)*scaleY + 5, QString::number(-i));
+    }
     painter.setPen(QPen(Qt::black,1));
+    ui->statusBar->showMessage("draw axes end");
 }
 
-void MainWindow::draw(){
-    QPixmap map(w, h);
-    QPainter paint;
 
-    paint.begin(&map);
-
-    drawAxes(paint);
-
+void MainWindow::drawGraph(QPainter & painter, const Polynom & p){
+    ui->statusBar->showMessage("draw graph start");
     QPainterPath path;
 
-    paint.setPen(QPen(Qt::blue,1));
+    painter.setPen(QPen(Qt::blue,1));
 
     double step = 0.01;
     bool first = true;
 
     for(double i = xMin; i <= xMax; i+=step){
         if(first){
-           path.moveTo((i+oX)*scaleX,(oY-f(i))*scaleY);
+           path.moveTo((i + oX)*scaleX,(oY - p(i))*scaleY);
            first = false;
         }
         else {
-            path.lineTo((i+oX)*scaleX,(oY-f(i))*scaleY);
+            path.lineTo((i + oX)*scaleX,(oY - p(i))*scaleY);
         }
     }
 
-    paint.drawPath(path);
-
-    paint.end();
-
-    ui->output->setPixmap(map);
-
+    painter.drawPath(path);
+    ui->statusBar->showMessage("draw graph end");
 }
 
-void MainWindow::draw(QPainter& paint){
-    drawAxes(paint);
+void MainWindow::drawLines(QPainter & painter,int count, const QStringList & listX, const QStringList & listY){
+    ui->statusBar->showMessage("draw lines start");
+    painter.setPen(QPen(Qt::gray,1));
 
-    QPainterPath path;
-
-    paint.setPen(QPen(Qt::blue,1));
-
-    double step = 0.01;
-    bool first = true;
-
-    for(double i = xMin; i <= xMax; i+=step){
-        if(first){
-           path.moveTo((i+oX)*scaleX,(oY-f(i))*scaleY);
-           first = false;
-        }
-        else {
-            path.lineTo((i+oX)*scaleX,(oY-f(i))*scaleY);
-        }
-    }
-
-    paint.drawPath(path);
-}
-
-//FIX ME
-void MainWindow::drawPoints(QPainter & painter,int count, const QStringList & listX, const QStringList & listY){
-    //return;
-    //painter.setPen(QPen(Qt::red,3));
     for(int i = 0; i < count; i++){
-        double x = (oX+listX[i].toDouble())*scaleX;
-        double y = (oY-listY[i].toDouble())*scaleY;
+        double x = (oX + listX[i].toDouble())*scaleX;
+        double y = (oY - listY[i].toDouble())*scaleY;
 
-        painter.setPen(QPen(Qt::gray,1));
-        QLine l1(x,0,x,h);
-        QLine l2(0,y,w,y);
+        QLine l1(x, 0, x, h);
+        QLine l2(0, y, w, y);
 
         painter.drawLine(l1);
         painter.drawLine(l2);
-
-        painter.setPen(QPen(Qt::red,3));
-        painter.drawPoint(x,y);
     }
+    ui->statusBar->showMessage("draw lines end");
+}
+
+void MainWindow::drawPoints(QPainter & painter,int count, const QStringList & listX, const QStringList & listY){
+    ui->statusBar->showMessage("draw points start");
+    painter.setPen(QPen(Qt::red,4));
+
+    for(int i = 0; i < count; i++){
+        double x = (oX + listX[i].toDouble())*scaleX;
+        double y = (oY - listY[i].toDouble())*scaleY;
+
+        painter.drawPoint(x, y);
+    }
+    ui->statusBar->showMessage("draw points end");
 }
 
 void MainWindow::solve(int count, const QStringList& listX, const QStringList& listY){
+    ui->statusBar->showMessage("solving start");
     std::vector<double> y(count), x(count);
 
     for(int i=0;i<count;i++){
@@ -221,8 +223,11 @@ void MainWindow::solve(int count, const QStringList& listX, const QStringList& l
 
         paint.begin(&map);
 
-        draw(paint);
-        drawPoints(paint,count,listX,listY);
+        clearPainter(paint);
+        drawAxes(paint);
+        drawLines(paint, count, listX, listY);
+        drawGraph(paint, p);
+        drawPoints(paint, count, listX, listY);
 
         paint.end();
 
@@ -231,6 +236,7 @@ void MainWindow::solve(int count, const QStringList& listX, const QStringList& l
         QString strAns = getStrAns(res);
         ui->outputLnX->setText(strAns);
     }
+    ui->statusBar->showMessage("solving end");
 }
 
 

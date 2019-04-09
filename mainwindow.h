@@ -2,6 +2,11 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPainter>
+#include <QtDebug>
+#include <QStandardItemModel>
+#include <QStandardItem>
+
 #include <math.h>
 #include "equationsystem.h"
 #include "polynom.h"
@@ -40,10 +45,13 @@ public:
     void setO();
     void calcScale();
 
+    void clearPainter(QPainter&);
     void draw(QPainter&);
     void draw();
     void drawAxes(QPainter&);
     void drawPoints(QPainter&, int, const QStringList&, const QStringList&);
+    void drawLines(QPainter&, int, const QStringList&, const QStringList&);
+    void drawGraph(QPainter&, const Polynom&);
 
     QString getStrAns(const std::vector<double>&);
 

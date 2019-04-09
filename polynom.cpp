@@ -11,7 +11,7 @@ Polynom::Polynom(const std::vector<double>& v){
     arr = v;
 }
 
-double Polynom::operator()(double x){
+double Polynom::operator()(double x) const{
     double ans = 0;
     for(size_t i = 0; i < arr.size(); i++)
         ans += arr[i] * pow(x,i);

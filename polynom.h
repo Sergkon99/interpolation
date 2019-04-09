@@ -10,7 +10,7 @@ public:
     Polynom();
     Polynom(const std::vector<double>&);
 
-    double operator()(double);
+    double operator()(double) const;
     void setValue(const std::vector<double>&);
 
 private:
