@@ -1,8 +1,6 @@
 #include "polynom.h"
 
-Polynom::Polynom()
-{
-
+Polynom::Polynom(){
 }
 
 Polynom::Polynom(const std::vector<double>& v){

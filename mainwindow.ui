@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1230</width>
-    <height>640</height>
+    <height>696</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,9 @@
       <height>470</height>
      </rect>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
     <property name="text">
      <string/>
     </property>
@@ -31,9 +34,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>30</y>
-      <width>700</width>
-      <height>50</height>
+      <y>10</y>
+      <width>1191</width>
+      <height>51</height>
      </rect>
     </property>
     <property name="font">
@@ -41,73 +44,28 @@
       <pointsize>16</pointsize>
      </font>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
     <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;L&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;(x) = 0&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
-   <widget class="Line" name="line">
-    <property name="geometry">
-     <rect>
-      <x>740</x>
-      <y>0</y>
-      <width>3</width>
-      <height>800</height>
-     </rect>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Vertical</enum>
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;L&lt;span style=&quot; vertical-align:sub;&quot;&gt;n&lt;/span&gt;(x)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>40</y>
+      <y>100</y>
       <width>450</width>
-      <height>231</height>
+      <height>241</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
-    <widget class="QWidget" name="tab">
-     <attribute name="title">
-      <string>Из файла</string>
-     </attribute>
-     <widget class="QWidget" name="layoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>30</y>
-        <width>391</width>
-        <height>101</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout">
-         <item>
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton">
-           <property name="text">
-            <string>Выбрать файл</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-       <item>
-        <widget class="QPushButton" name="pushButton_2">
-         <property name="text">
-          <string>Вычислить</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
+    <property name="elideMode">
+     <enum>Qt::ElideRight</enum>
+    </property>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
       <string>Вручную</string>
@@ -117,7 +75,7 @@
        <rect>
         <x>20</x>
         <y>16</y>
-        <width>401</width>
+        <width>411</width>
         <height>169</height>
        </rect>
       </property>
@@ -133,6 +91,9 @@
          </item>
          <item>
           <widget class="QSpinBox" name="sb_countEqutations">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="value">
             <number>3</number>
            </property>
@@ -160,7 +121,7 @@
        <item>
         <widget class="QLabel" name="label_4">
          <property name="text">
-          <string>Введите значеня в узлах интерполяции через запятую</string>
+          <string>Введите значения в узлах интерполяции через запятую</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -176,6 +137,9 @@
        </item>
        <item>
         <widget class="QPushButton" name="btn_Solve2">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
          <property name="text">
           <string>Вычислить</string>
          </property>
@@ -184,12 +148,106 @@
       </layout>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab">
+     <attribute name="title">
+      <string>Из файла</string>
+     </attribute>
+     <widget class="QWidget" name="layoutWidget">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>411</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Введите имя файла или выберите его</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QLineEdit" name="le_FilePath"/>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_chooseFile">
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
+           <property name="text">
+            <string>Выбрать файл</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_Solve1">
+         <property name="cursor">
+          <cursorShape>PointingHandCursor</cursorShape>
+         </property>
+         <property name="text">
+          <string>Вычислить</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="title">
+      <string>Поставить точки</string>
+     </attribute>
+     <widget class="QCheckBox" name="cb_setPoint">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>20</y>
+        <width>401</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Поставить точки на плоскости</string>
+      </property>
+     </widget>
+     <widget class="QCheckBox" name="cb_onlyInt">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>50</y>
+        <width>411</width>
+        <height>22</height>
+       </rect>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="text">
+       <string>Только целые координаты</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
       <x>760</x>
-      <y>10</y>
+      <y>70</y>
       <width>450</width>
       <height>20</height>
      </rect>
@@ -212,13 +270,161 @@
    <widget class="QListView" name="lw_Sample">
     <property name="geometry">
      <rect>
-      <x>760</x>
-      <y>300</y>
-      <width>450</width>
-      <height>270</height>
+      <x>759</x>
+      <y>379</y>
+      <width>451</width>
+      <height>191</height>
      </rect>
     </property>
    </widget>
+   <widget class="QPushButton" name="pb_chX">
+    <property name="geometry">
+     <rect>
+      <x>140</x>
+      <y>590</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>+ X</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_chY">
+    <property name="geometry">
+     <rect>
+      <x>620</x>
+      <y>590</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>+ Y</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_chX_minus">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>590</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>- X</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_chY_minus">
+    <property name="geometry">
+     <rect>
+      <x>499</x>
+      <y>590</y>
+      <width>101</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>- Y</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_6">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>340</y>
+      <width>451</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Вы ввели</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pb_default">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>590</y>
+      <width>161</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="text">
+     <string>Сбросить</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>760</x>
+      <y>590</y>
+      <width>451</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QCheckBox" name="cb_formatOutput">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Форматированый вывод</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cb_showGrid">
+       <property name="cursor">
+        <cursorShape>PointingHandCursor</cursorShape>
+       </property>
+       <property name="text">
+        <string>Отрисовывать сетку</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>layoutWidget</zorder>
+   <zorder>output</zorder>
+   <zorder>tabWidget</zorder>
+   <zorder>label_2</zorder>
+   <zorder>lw_Sample</zorder>
+   <zorder>pb_chX</zorder>
+   <zorder>pb_chY</zorder>
+   <zorder>pb_chX_minus</zorder>
+   <zorder>pb_chY_minus</zorder>
+   <zorder>label_6</zorder>
+   <zorder>pb_default</zorder>
+   <zorder>outputLnX</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
