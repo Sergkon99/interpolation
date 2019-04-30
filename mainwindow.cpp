@@ -330,7 +330,6 @@ void MainWindow::setInputData(){
 
 void MainWindow::on_btn_Solve2_clicked(){
     setCount(ui->sb_countEqutations->value());
-    //count = ui->sb_countEqutations->value();
     QString dataY = ui->le_value->text();
     QString dataX = ui->le_key->text();
 
@@ -384,9 +383,7 @@ void MainWindow::on_btn_Solve2_clicked(){
                     *max_element(all(y)));
 
     int minSz = min(*min_element(all(x)),
-                    *min_element(all(y)));
-
-    //init(-3, 9);
+                    *min_element(all(y)));    
 
     solve();
 
@@ -403,7 +400,6 @@ void MainWindow::updateGraph(){
     drawPoints();
 }
 
-// DONT FIX ME
 void MainWindow::on_btn_chooseFile_clicked(){
     auto path = QFileDialog::getOpenFileName(this,"Выбрать файл","C:\\","*.txt");
 
@@ -432,7 +428,6 @@ void MainWindow::on_btn_Solve1_clicked()
     auto dataList = data.split('\n');
 
     setCount(dataList[0].toInt());
-    //count = dataList[0].toDouble();
     QStringList listX = dataList[1].split(' ');
     QStringList listY = dataList[2].split(' ');
 
@@ -535,7 +530,6 @@ void MainWindow::on_pb_default_clicked()
 
     wasSolve = false;
     setCount(0);
-    //count = 0;
     x.resize(count);
     y.resize(count);
 
@@ -546,13 +540,9 @@ void MainWindow::on_pb_default_clicked()
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *e){
-    //setPoint = true;
     if(!setPoint)
         return;
 
-    //count = 0;
-    //x.resize(count);
-    //y.resize(count);
     double _x = e->x();
     double _y = e->y();
 
@@ -611,15 +601,13 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
     }
     else
         ui->statusBar->showMessage("out pixmap");
-    //ui->statusBar->showMessage(QString("%1,%2,%3,%4").arg(pixmapPos.x()).arg(pixmapPos.y()).arg(pixmapPos.height()).arg(pixmapPos.width()));
 }
 
 void MainWindow::on_cb_setPoint_stateChanged(int arg1)
 {
     if(arg1 != 0){
         setPoint = true;
-        setCount(0);
-        //count = 0;
+        setCount(0);        
         x.resize(count);
         y.resize(count);
         ui->tab->setEnabled(false);
@@ -632,7 +620,7 @@ void MainWindow::on_cb_setPoint_stateChanged(int arg1)
         ui->output->setCursor(QCursor(Qt::CursorShape::ArrowCursor));
     }
 
-    ui->statusBar->showMessage(QString::number(arg1));//0 - select 2 - no
+    ui->statusBar->showMessage(QString::number(arg1));
 }
 
 void MainWindow::on_cb_showGrid_stateChanged(int arg1)
