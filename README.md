@@ -5,7 +5,7 @@
 # Вычисление
 
 Многочлен Лагранжа имеет вид представляется в виде _L(x) = a<sub>0</sub> + a<sub>1</sub>x + a<sub>2</sub>x<sup>2</sup> + a<sub>3</sub>x<sup>3</sup> + &hellip; + a<sub>n</sub>x<sup>n</sup>._    
-Коэффициенты  a<sub>i</sub> находятся из системы уравнений:
+Коэффициенты  a<sub>i</sub> находятся из системы уравнений:    
 ![СЛАУ](https://raw.githubusercontent.com/Sergkon99/interpolation/master/img/16.png "Орк")
 
 # Программная реализация
