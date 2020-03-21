@@ -25,18 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    equationsystem.cpp \
-    polynom.cpp
+        code\main.cpp \
+        code\implementation\mainwindow.cpp \
+    code\implementation\equationsystem.cpp \
+    code\implementation\polynom.cpp
 
 HEADERS += \
-        mainwindow.h \
-    equationsystem.h \
-    polynom.h
+        code\mainwindow.h \
+    code\equationsystem.h \
+    code\polynom.h
 
 FORMS += \
-        mainwindow.ui
+        code\ui\mainwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
